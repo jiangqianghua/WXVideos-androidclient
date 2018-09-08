@@ -80,7 +80,7 @@ public class RefreshHandler implements OnRefreshListener,OnLoadMoreListener {
                     }
                 })
                 .build()
-                .get();
+                .postJson();
     }
 
     private void onPageing(String url){
@@ -105,7 +105,7 @@ public class RefreshHandler implements OnRefreshListener,OnLoadMoreListener {
                         }
                     })
                     .build()
-                    .get();
+                    .postJson();
         }
     }
 }

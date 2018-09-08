@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="0dp"
     android:layout_marginTop="0dp"
     android:layout_height="wrap_content">
 
@@ -10,5 +10,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/id_video_item_thumb"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher"
+            />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/id_video_item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/id_video_item_thumb"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="111"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:lines="2"
+            android:ellipsize="end"
+            android:layout_toLeftOf="@id/id_video_item_heart"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"
+            />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/id_video_item_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/id_video_item_likecount"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"
+            android:text="♥"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/id_video_item_likecount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200000"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1"
+            />
+    </RelativeLayout>
+
 
 </RelativeLayout>

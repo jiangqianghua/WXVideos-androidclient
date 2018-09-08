@@ -7,6 +7,7 @@ import com.jqh.core.recycler.DataConverter;
 import com.jqh.core.recycler.ItemType;
 import com.jqh.core.recycler.MultipleFields;
 import com.jqh.core.recycler.MultipleItemEntity;
+import com.jqh.wxvideo.delegate.video.VideoItemFields;
 import com.jqh.wxvideo.delegate.video.VideosItemType;
 
 import java.util.ArrayList;
@@ -25,10 +26,14 @@ public class RecommentVideosDataConverter extends DataConverter {
             String nickName = data.getString("nickName");
             String faceImage = data.getString("faceImage");
             int likeCounts = data.getInteger("likeCounts");
+            String desc = data.getString("videoDesc");
 
             final MultipleItemEntity entity = MultipleItemEntity.builder()
                     .setItemType(VideosItemType.VIDEO_ITEM_RECOMMENT)
-                    .setField(MultipleFields.IMAGE_URL,coverPath)
+                    .setField(VideoItemFields.COVER,coverPath)
+                    .setField(VideoItemFields.DESC,desc)
+                    .setField(VideoItemFields.LIKECOUNT,likeCounts)
+                    .setField(VideoItemFields.THUMB,faceImage)
                     .build();
             ENTITES.add(entity);
         }
