@@ -12,6 +12,7 @@
         app:tabSelectedTextColor="@android:color/black"
         app:tabTextColor="@android:color/black"
         android:layout_gravity="center"
+        app:tabBackground="@android:color/transparent"
         />
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

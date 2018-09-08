@@ -49,7 +49,7 @@ implements BaseQuickAdapter.SpanSizeLookup,OnItemClickListener{
         addItemType(ItemType.TEXT_IMAGE, R.layout.item_multipe_image_text);
         addItemType(ItemType.BANNER, R.layout.item_multipe_banner);
         //设置宽度监听
-        setSpanSizeLookup(this);
+      //  setSpanSizeLookup(this);
         // 打开动画
         openLoadAnimation();
         isFirstOnly(false);
@@ -68,7 +68,7 @@ implements BaseQuickAdapter.SpanSizeLookup,OnItemClickListener{
                 case ItemType.IMAGE:
                     imageUrl = item.getField(MultipleFields.IMAGE_URL);
                     Glide.with(mContext)
-                            .load(imageUrl)
+                            .load("http://192.168.1.105:8081"+imageUrl)
                             .apply(RECYCLER_OPTIONS)
                             .into((ImageView)helper.getView(R.id.img_single));
                     break;

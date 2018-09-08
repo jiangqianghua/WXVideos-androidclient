@@ -11,6 +11,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -30,6 +31,10 @@ public interface RestService {
 
     @POST
     Call<String> postRaw(@Url String url, @Body RequestBody body);
+
+//    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+//    @POST
+//    Call<String> postJson(@Url String url, @FieldMap WeakHashMap<String, Object> params);
 
     @FormUrlEncoded
     @POST

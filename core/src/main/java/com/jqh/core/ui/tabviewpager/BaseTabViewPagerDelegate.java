@@ -85,7 +85,7 @@ public abstract class BaseTabViewPagerDelegate extends JqhDelegate {
         mTabLayout.post(new Runnable() {
             @Override
             public void run() {
-                TabUtils.setIndicator(mTabLayout,20,20);
+                TabUtils.setIndicator(mTabLayout,35,35);
             }
         });
 

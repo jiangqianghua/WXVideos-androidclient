@@ -4,12 +4,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.jqh.core.R;
 import com.jqh.core.deletegates.JqhDelegate;
@@ -77,18 +79,29 @@ public abstract class BaseBottomDelegate extends JqhDelegate implements View.OnC
         mBottomBar = (LinearLayout) rootView.findViewById(R.id.bottom_bar);
         final int size = ITEMS.size();
         for(int i = 0 ; i < size ; i++){
-            LayoutInflater.from(getContext()).inflate(R.layout.bottom_item_icon_text_layout,mBottomBar);
+            BottomTabBean bottomTabBean = TAB_BEAN.get(i);
+            if(bottomTabBean.getTabType() == BottomTabBean.TAB_TYPE_ICON_TEXT)
+                LayoutInflater.from(getContext()).inflate(R.layout.bottom_item_icon_text_layout,mBottomBar);
+            else
+                LayoutInflater.from(getContext()).inflate(R.layout.bottom_item_image_layout,mBottomBar);
+
             final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);
             item.setTag(i);
             item.setOnClickListener(this);
-            final IconTextView itemIcon = (IconTextView)item.getChildAt(0);
-            final AppCompatTextView itemTitle = (AppCompatTextView)item.getChildAt(1);
-            final BottomTabBean bean = TAB_BEAN.get(i);
-            itemIcon.setText(bean.getIcon().toString());
-            itemTitle.setText(bean.getTitle());
-            if(i == mIndexDelgate){
-                itemIcon.setTextColor(mClickColor);
-                itemTitle.setTextColor(mClickColor);
+            if(bottomTabBean.getTabType() == BottomTabBean.TAB_TYPE_ICON_TEXT) {
+                final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
+                final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
+                itemIcon.setText(bottomTabBean.getIcon().toString());
+                itemTitle.setText(bottomTabBean.getTitle());
+                if (i == mIndexDelgate) {
+                    itemIcon.setTextColor(mClickColor);
+                    itemTitle.setTextColor(mClickColor);
+                }
+            }else{
+                final AppCompatImageView imageView = (AppCompatImageView)item.getChildAt(0);
+                Glide.with(getContext())
+                        .load(bottomTabBean.getResId())
+                        .into(imageView);
             }
         }
         final SupportFragment[] delegateArray = ITEM_DELEGES.toArray(new SupportFragment[size]);
@@ -99,24 +112,37 @@ public abstract class BaseBottomDelegate extends JqhDelegate implements View.OnC
     private void resetColor(){
         final int count = mBottomBar.getChildCount();
         for(int i = 0 ; i < count ; i++){
-            final RelativeLayout item = (RelativeLayout)mBottomBar.getChildAt(i);
-            final IconTextView itemIcon = (IconTextView)item.getChildAt(0);
-            itemIcon.setTextColor(Color.GRAY);
-            final AppCompatTextView itemTitle = (AppCompatTextView)item.getChildAt(1);
-            itemTitle.setTextColor(Color.GRAY);
+            BottomTabBean bottomTabBean = TAB_BEAN.get(i);
+            if(bottomTabBean.getTabType() == BottomTabBean.TAB_TYPE_ICON_TEXT) {
+                final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);
+                final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
+                itemIcon.setTextColor(Color.GRAY);
+                final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
+                itemTitle.setTextColor(Color.GRAY);
+            }else{
+
+            }
         }
     }
 
     @Override
     public void onClick(View v) {
         final int tag = (int)v.getTag();
-        resetColor();
+
         final RelativeLayout item = (RelativeLayout)v;
-        final IconTextView itemIcon = (IconTextView)item.getChildAt(0);
-        itemIcon.setTextColor(mClickColor);
-        final AppCompatTextView itemTitle = (AppCompatTextView)item.getChildAt(1);
-        itemTitle.setTextColor(mClickColor);
-        showHideFragment(ITEM_DELEGES.get(tag),ITEM_DELEGES.get(mCurrentDelegate));
-        mCurrentDelegate = tag;
+        if(item.getChildAt(0) instanceof IconTextView ) {
+            resetColor();
+            final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
+            itemIcon.setTextColor(mClickColor);
+            final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
+            itemTitle.setTextColor(mClickColor);
+            showHideFragment(ITEM_DELEGES.get(tag), ITEM_DELEGES.get(mCurrentDelegate));
+            mCurrentDelegate = tag;
+        }else{
+            int index = (int)v.getTag();
+            onItemClick(index);
+        }
     }
+
+    protected abstract void onItemClick(int itemIndex);
 }

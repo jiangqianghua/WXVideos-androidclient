@@ -39,27 +39,27 @@ public class RestCreator {
 
     private static final class OKHttpHolder{
         private static final int TIME_OUT = 60 ;
-//
-//        private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
-//                .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-//                .build();
 
-        // 添加拦截器模拟请求
-        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
-        private static final ArrayList<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Jqh.getConfiguration(ConfigKeys.INTERCEPTOR);
-
-        private static final OkHttpClient OK_HTTP_CLIENT = addInterceptor()
+        private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build();
 
-        private static OkHttpClient.Builder addInterceptor(){
-            if(INTERCEPTORS != null && !INTERCEPTORS.isEmpty()){
-                for(Interceptor interceptor : INTERCEPTORS){
-                    BUILDER.addInterceptor(interceptor);
-                }
-            }
-            return BUILDER;
-        }
+//        // 添加拦截器模拟请求
+//        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+//        private static final ArrayList<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Jqh.getConfiguration(ConfigKeys.INTERCEPTOR);
+//
+//        private static final OkHttpClient OK_HTTP_CLIENT = addInterceptor()
+//                .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+//                .build();
+//
+//        private static OkHttpClient.Builder addInterceptor(){
+//            if(INTERCEPTORS != null && !INTERCEPTORS.isEmpty()){
+//                for(Interceptor interceptor : INTERCEPTORS){
+//                    BUILDER.addInterceptor(interceptor);
+//                }
+//            }
+//            return BUILDER;
+//        }
 
     }
 

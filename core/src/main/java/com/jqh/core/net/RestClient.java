@@ -10,6 +10,7 @@ import com.jqh.core.net.calback.RequestCallBacks;
 import com.jqh.core.net.download.DownloadHandler;
 import com.jqh.core.ui.loader.JqhLoader;
 import com.jqh.core.ui.loader.LoaderStyle;
+import com.jqh.core.util.json.JsonUtils;
 
 import java.io.File;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class RestClient {
 
     private final IFailure FAILURE ;
 
-    private final RequestBody BODY ;
+    private RequestBody BODY ;
 
     private final LoaderStyle LOADER_STYLE ;
 
@@ -144,6 +145,15 @@ public class RestClient {
             }
             request(HttpMethod.POST_RAW);
         }
+    }
+
+    /**
+     * 提交json
+     */
+    public final void postJson(){
+        String json = JsonUtils.converterToJson((Map<String, Object>) PARAMS);
+        BODY = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),json);
+        request(HttpMethod.POST_RAW);
     }
 
     public final void put(){
