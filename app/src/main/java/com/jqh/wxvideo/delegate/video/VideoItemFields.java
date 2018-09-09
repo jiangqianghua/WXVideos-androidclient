@@ -5,7 +5,8 @@ public enum VideoItemFields {
     THUMB,
     DESC,
     COVER,
-    LIKECOUNT
+    LIKECOUNT,
+    VIDEOPATH
 
 
 }

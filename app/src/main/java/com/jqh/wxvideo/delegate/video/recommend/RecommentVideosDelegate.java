@@ -8,10 +8,13 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.jqh.core.recycler.MultipleItemEntity;
 import com.jqh.core.refresh.RefreshHandler;
 import com.jqh.core.ui.tabviewpager.TabViewPagerItemDelegate;
 import com.jqh.wxvideo.R;
+import com.jqh.wxvideo.delegate.video.videoplayer.VideoPlayerDelegate;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -56,6 +59,28 @@ public class RecommentVideosDelegate extends TabViewPagerItemDelegate implements
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 manager.invalidateSpanAssignments();
+            }
+        });
+
+        mRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                RecommentVideosDelegate.this.getParentDelegate().getParentDelegate().start(new VideoPlayerDelegate());
+            }
+
+            @Override
+            public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+
             }
         });
     }
