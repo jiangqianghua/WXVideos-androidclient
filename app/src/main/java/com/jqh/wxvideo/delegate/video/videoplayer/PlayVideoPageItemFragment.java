@@ -62,7 +62,7 @@ public class PlayVideoPageItemFragment extends JqhDelegate {
         String host = Jqh.getConfiguration(ConfigKeys.API_HOST);
         jzVideoPlayerStandard = (JZVideoPlayerStandard) rootView.findViewById(R.id.videoplayer);
         jzVideoPlayerStandard.setUp(host+""+videoUrl,
-                JZVideoPlayerStandard.SCREEN_WINDOW_FULLSCREEN,
+                JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,
                 "");
 
 

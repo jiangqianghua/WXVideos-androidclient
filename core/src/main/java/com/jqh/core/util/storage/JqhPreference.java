@@ -20,7 +20,7 @@ public class JqhPreference {
      */
     private static final SharedPreferences PREFERENCES =
             PreferenceManager.getDefaultSharedPreferences(Jqh.getApplicationContext());
-    private static final String APP_PREFERENCES_KEY = "profile";
+    private static final String APP_PREFERENCES_KEY = "wxvideo_profile";
 
     private static SharedPreferences getAppPreference() {
         return PREFERENCES;

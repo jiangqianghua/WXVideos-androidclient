@@ -153,6 +153,7 @@ public class RestClient {
     public final void postJson(){
         String json = JsonUtils.converterToJson((Map<String, Object>) PARAMS);
         BODY = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),json);
+
         request(HttpMethod.POST_RAW);
     }
 

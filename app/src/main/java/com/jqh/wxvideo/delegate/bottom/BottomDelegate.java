@@ -11,6 +11,7 @@ import com.jqh.core.util.log.JqhLogger;
 import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.delegate.LauncherDelegate;
 import com.jqh.wxvideo.delegate.home.HomeDelegate;
+import com.jqh.wxvideo.delegate.mine.MineDelegate;
 import com.jqh.wxvideo.delegate.video.VideosDelegate;
 
 import java.util.LinkedHashMap;
@@ -23,7 +24,7 @@ public class BottomDelegate extends BaseBottomDelegate {
         items.put(new BottomTabBean("{fa-home}","视频"),new VideosDelegate());
       //  items.put(new BottomTabBean(R.mipmap.plus),new LauncherDelegate());
         items.put(new BottomTabBean("{fa-home}","消息"),new LauncherDelegate());
-        items.put(new BottomTabBean("{fa-home}","我的"),new LauncherDelegate());
+        items.put(new BottomTabBean("{fa-home}","我的"), new MineDelegate());
         //items.put(new BottomTabBean("{fa-home}","我的"),new LauncherDelegate());
         return builder.addItems(items).build();
     }

@@ -50,7 +50,7 @@ public class MyApplication extends Application {
         Jqh.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new IoniconsModule())
-                .withApiHost("http://192.168.1.105:8081")
+                .withApiHost("http://192.168.1.101:8081")
                 .withInterceptor(new DebugInterceptor("test",0))
                 .configure();
     }
