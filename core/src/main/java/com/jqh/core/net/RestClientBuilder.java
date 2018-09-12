@@ -9,6 +9,7 @@ import com.jqh.core.net.calback.ISuccess;
 import com.jqh.core.ui.loader.LoaderStyle;
 
 import java.io.File;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -22,6 +23,8 @@ public class RestClientBuilder {
     private  String mUrl ;
 
     private  static WeakHashMap<String,Object> PARAMS = RestCreator.getParams() ;
+
+    private static WeakHashMap<String,String> HEADERS = new WeakHashMap<>() ;
 
     private IRequest mIRequest ;
 
@@ -63,6 +66,11 @@ public class RestClientBuilder {
     public final RestClientBuilder params(String key , Object value){
         PARAMS.put(key,value);
         return this;
+    }
+
+    public final RestClientBuilder headers(String key,String value){
+        HEADERS.put(key,value);
+        return this ;
     }
 
     public final RestClientBuilder raw(String raw){
@@ -129,7 +137,7 @@ public class RestClientBuilder {
     }
 
     public final RestClient build(){
-        return new RestClient(mUrl,PARAMS,mIRequest,mISuccess,mIError,mIFailure,mBody,context,loaderStyle,mFile,mDownoad_dir,mExtenion,mName);
+        return new RestClient(mUrl,PARAMS,mIRequest,mISuccess,mIError,mIFailure,mBody,context,loaderStyle,mFile,mDownoad_dir,mExtenion,mName,HEADERS);
     }
 
 }

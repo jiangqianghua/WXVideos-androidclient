@@ -55,6 +55,8 @@ public class RestClient {
 
     private final String NAME;
 
+    private final WeakHashMap<String ,String > HEADERS ;
+
 
 
     public RestClient(String URL,
@@ -69,7 +71,8 @@ public class RestClient {
                       File file,
                       String download_dir,
                       String extension,
-                      String name) {
+                      String name,
+                      WeakHashMap<String ,String> headers) {
         this.URL = URL;
         this.PARAMS.putAll(PARAMS);
         this.REQUEST = REQUEST;
@@ -83,6 +86,7 @@ public class RestClient {
         this.DOWNLOAD_DIR = download_dir ;
         this.EXTENSION = extension ;
         this.NAME = name ;
+        this.HEADERS = headers ;
     }
 
     public static RestClientBuilder builder(){
@@ -103,7 +107,7 @@ public class RestClient {
                 call = service.get(URL,PARAMS);
                 break;
             case POST_RAW:
-                call = service.postRaw(URL,BODY);
+                call = service.postRaw(URL,BODY,HEADERS);
                 break;
             case POST:
                 call = service.post(URL,PARAMS);
@@ -153,7 +157,6 @@ public class RestClient {
     public final void postJson(){
         String json = JsonUtils.converterToJson((Map<String, Object>) PARAMS);
         BODY = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),json);
-
         request(HttpMethod.POST_RAW);
     }
 

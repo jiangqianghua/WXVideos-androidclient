@@ -1,5 +1,6 @@
 package com.jqh.core.net;
 
+import java.util.Map;
 import java.util.WeakHashMap;
 
 import okhttp3.MultipartBody;
@@ -11,6 +12,8 @@ import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -31,6 +34,10 @@ public interface RestService {
 
     @POST
     Call<String> postRaw(@Url String url, @Body RequestBody body);
+
+    // 带header参数
+    @POST
+    Call<String> postRaw(@Url String url, @Body RequestBody body,@HeaderMap Map<String, String> headers);
 
 //    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
 //    @POST
