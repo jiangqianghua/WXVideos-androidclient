@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -16,10 +17,13 @@ import com.jqh.core.app.ConfigKeys;
 import com.jqh.core.app.Jqh;
 import com.jqh.core.bottom.BottomItemDelegate;
 import com.jqh.core.net.RestClient;
+import com.jqh.core.net.calback.IError;
+import com.jqh.core.net.calback.IFailure;
 import com.jqh.core.net.calback.ISuccess;
 import com.jqh.core.util.log.JqhLogger;
 import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.delegate.login.LoginDelegate;
+import com.jqh.wxvideo.delegate.mine.tab.MineTabsDelegate;
 import com.jqh.wxvideo.utils.cache.CacheData;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,16 +39,33 @@ public class MineDelegate extends BottomItemDelegate {
     private AppCompatTextView fanTv;
     private AppCompatTextView followTv ;
     private AppCompatTextView priseTv ;
+
+    private String userId ;
+
+    public static final String USER_ID_KEY = "USER_ID_KEY";
     @Override
     public Object setLayout() {
         return R.layout.delegate_mine;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle args = getArguments() ;
+        userId = args.getString(USER_ID_KEY);
+
     }
+
+    public static MineDelegate getInstance(String userId ){
+        Bundle args = new Bundle();
+        args.putString(USER_ID_KEY,userId);
+        MineDelegate delegate = new MineDelegate();
+        delegate.setArguments(args);
+        return delegate ;
+    }
+
 
     @Override
     public void onBindView(@Nullable Bundle saveInstanceState, View rootView) {
@@ -55,10 +76,13 @@ public class MineDelegate extends BottomItemDelegate {
         followTv = rootView.findViewById(R.id.tv_follownum);
         priseTv = rootView.findViewById(R.id.tv_prisenum);
 
+        MineTabsDelegate delegate = MineTabsDelegate.getInstance(userId);
+        loadRootFragment(R.id.fragment_content_tab,delegate);
+
         if(!CacheData.isLogin()){
             this.getParentDelegate().start(new LoginDelegate());
         }
-       // this.getParentDelegate().start(new LoginDelegate());
+        //this.getParentDelegate().start(new LoginDelegate());
 
         // 获取用户信息
         updateUserInfo();
@@ -69,11 +93,11 @@ public class MineDelegate extends BottomItemDelegate {
      * 更新用户信息
      */
     private void updateUserInfo(){
-        String userId = CacheData.getUserId() ;
+        String fanId = CacheData.getUserId() ;
         String token = CacheData.getTokenId();
         RestClient.builder()
                 .loader(getContext())
-                .url("/user/query?userId="+userId + "&fanId=" + userId)
+                .url("/user/query?userId="+userId + "&fanId=" + fanId)
                 .headers("userId",userId)
                 .headers("userToken",token)
                 .success(new ISuccess() {
@@ -83,6 +107,18 @@ public class MineDelegate extends BottomItemDelegate {
                         updateView(response);
                     }
                 })
+                .error(new IError() {
+                    @Override
+                    public void onError(int code, String msg) {
+                        ToastUtils.showShort(msg);
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        ToastUtils.showShort("onFailure");
+                    }
+                })
                 .build().postJson();
     }
 
@@ -90,7 +126,7 @@ public class MineDelegate extends BottomItemDelegate {
         String host = Jqh.getConfiguration(ConfigKeys.API_HOST);
         JSONObject data = JSON.parseObject(response).getJSONObject("data");
         String faceImage = data.getString("faceImage");
-        String nickName = data.getString("nickName");
+        String nickName = data.getString("username");
         int fansCounts = data.getInteger("fansCounts");
         int receiveLikeCounts = data.getInteger("receiveLikeCounts");
         int followCounts = data.getInteger("followCounts") ;

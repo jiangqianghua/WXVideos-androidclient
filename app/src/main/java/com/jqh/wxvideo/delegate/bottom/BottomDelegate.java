@@ -13,18 +13,20 @@ import com.jqh.wxvideo.delegate.LauncherDelegate;
 import com.jqh.wxvideo.delegate.home.HomeDelegate;
 import com.jqh.wxvideo.delegate.mine.MineDelegate;
 import com.jqh.wxvideo.delegate.video.VideosDelegate;
+import com.jqh.wxvideo.utils.cache.CacheData;
 
 import java.util.LinkedHashMap;
 
 public class BottomDelegate extends BaseBottomDelegate {
     @Override
     public LinkedHashMap<BottomTabBean, BottomItemDelegate> setItems(ItemBuilder builder) {
+        String userId = CacheData.getUserId() ;
         final LinkedHashMap<BottomTabBean,BottomItemDelegate> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{fa-home}","直播"),new HomeDelegate());
         items.put(new BottomTabBean("{fa-home}","视频"),new VideosDelegate());
       //  items.put(new BottomTabBean(R.mipmap.plus),new LauncherDelegate());
         items.put(new BottomTabBean("{fa-home}","消息"),new LauncherDelegate());
-        items.put(new BottomTabBean("{fa-home}","我的"), new MineDelegate());
+        items.put(new BottomTabBean("{fa-home}","我的"), MineDelegate.getInstance(userId));
         //items.put(new BottomTabBean("{fa-home}","我的"),new LauncherDelegate());
         return builder.addItems(items).build();
     }

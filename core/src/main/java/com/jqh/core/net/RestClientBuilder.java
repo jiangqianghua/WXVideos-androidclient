@@ -24,7 +24,7 @@ public class RestClientBuilder {
 
     private  static WeakHashMap<String,Object> PARAMS = RestCreator.getParams() ;
 
-    private static WeakHashMap<String,String> HEADERS = new WeakHashMap<>() ;
+    private  WeakHashMap<String,String> HEADERS = new WeakHashMap<>() ;
 
     private IRequest mIRequest ;
 

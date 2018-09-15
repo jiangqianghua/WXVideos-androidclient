@@ -3,75 +3,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_thum"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp" />
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_thum"
-        android:layout_marginTop="10dp"
-        android:textSize="18sp"
-        android:text="name"/>
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="上传作品"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_name"
-        android:layout_marginTop="10dp"
-        />
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="注  销"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_upload"
-        android:layout_marginTop="10dp"
-        />
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scrollbars="none">-->
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_thum"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="10dp" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_thum"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:text="name"/>
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上传作品"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name"
+                    android:layout_marginTop="10dp"
+                    />
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注  销"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_upload"
+                    android:layout_marginTop="10dp"
+                    />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_fannum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btn_logout"
-        app:layout_constraintRight_toLeftOf="@id/tv_follownum"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="0 粉丝"
-        android:textSize="16sp"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_fannum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/btn_logout"
+                    app:layout_constraintRight_toLeftOf="@id/tv_follownum"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="0 粉丝"
+                    android:textSize="16sp"/>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_follownum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btn_logout"
-        app:layout_constraintLeft_toRightOf="@id/tv_fannum"
-        app:layout_constraintRight_toLeftOf="@id/tv_prisenum"
-        android:text="0 关注"
-        android:textSize="16sp"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_follownum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/btn_logout"
+                    app:layout_constraintLeft_toRightOf="@id/tv_fannum"
+                    app:layout_constraintRight_toLeftOf="@id/tv_prisenum"
+                    android:text="0 关注"
+                    android:textSize="16sp"/>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_prisenum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btn_logout"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/tv_follownum"
-        android:text="0 点赞"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_chainStyle="packed"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_prisenum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/btn_logout"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/tv_follownum"
+                    android:text="0 点赞"
+                    android:textSize="16sp"
+                    app:layout_constraintHorizontal_chainStyle="packed"/>
+
+                <android.support.v7.widget.ContentFrameLayout
+                    android:id="@+id/fragment_content_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_prisenum"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    >
+
+                </android.support.v7.widget.ContentFrameLayout>
+            </android.support.constraint.ConstraintLayout>
+        <!--</ScrollView>-->
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>

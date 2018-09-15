@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.joanzapata.iconify.fonts.IoniconsModule;
 import com.jqh.core.app.Jqh;
@@ -53,6 +54,8 @@ public class MyApplication extends Application {
                 .withApiHost("http://192.168.1.101:8081")
                 .withInterceptor(new DebugInterceptor("test",0))
                 .configure();
+
+        Utils.init(getApplicationContext());
     }
 
 
