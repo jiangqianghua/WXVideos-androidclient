@@ -1,4 +1,4 @@
-package com.jqh.wxvideo.delegate.mine.tab;
+package com.jqh.wxvideo.delegate.mine;
 
 import android.widget.ImageView;
 

@@ -99,8 +99,10 @@ public class RestClient {
         if(REQUEST != null){
             REQUEST.onRequestStart();
         }
-        if(LOADER_STYLE != null){
-            JqhLoader.showLoading(CONTEXT,LOADER_STYLE);
+        if(CONTEXT != null) {
+            if (LOADER_STYLE != null) {
+                JqhLoader.showLoading(CONTEXT, LOADER_STYLE);
+            }
         }
         switch (method){
             case GET:

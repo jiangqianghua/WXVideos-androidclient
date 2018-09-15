@@ -15,9 +15,11 @@ import com.jqh.core.recycler.MultipleFields;
 import com.jqh.core.recycler.MultipleItemEntity;
 import com.jqh.core.util.log.JqhLogger;
 import com.jqh.wxvideo.R;
+import com.jqh.wxvideo.delegate.detial.UserDetailDelegate;
 import com.jqh.wxvideo.delegate.video.VideoItemFields;
 
 import cn.jzvd.JZVideoPlayerStandard;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlayVideoPageItemFragment extends JqhDelegate {
 
@@ -25,7 +27,10 @@ public class PlayVideoPageItemFragment extends JqhDelegate {
     private String cover ;
     private String videoUrl ;
     private JZVideoPlayerStandard jzVideoPlayerStandard ;
+    private CircleImageView headerImageView ;
 
+    private String userId;
+    private String header ;
     private static final RequestOptions OPTIONS = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .dontAnimate()
@@ -36,8 +41,12 @@ public class PlayVideoPageItemFragment extends JqhDelegate {
         PlayVideoPageItemFragment fragment = new PlayVideoPageItemFragment();
         String cover = entity.getField(VideoItemFields.COVER) ;
         String videoPath = entity.getField(VideoItemFields.VIDEOPATH);
+        String userId= entity.getField(VideoItemFields.USERID);
+        String header = entity.getField(VideoItemFields.THUMB);
         args.putString("coverPath",cover);
         args.putString("videoPath",videoPath);
+        args.putString("userId",userId);
+        args.putString("header",header);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,6 +57,8 @@ public class PlayVideoPageItemFragment extends JqhDelegate {
         Bundle args = getArguments();
         cover = args.getString("coverPath");
         videoUrl = args.getString("videoPath");
+        userId = args.getString("userId");
+        header = args.getString("header");
         JqhLogger.d("PlayVideoPageItemFragment:onCreate"+cover);
     }
 
@@ -69,6 +80,22 @@ public class PlayVideoPageItemFragment extends JqhDelegate {
         Glide.with(getContext())
                 .load(host+""+cover)
                 .into(jzVideoPlayerStandard.thumbImageView);
+
+
+        headerImageView = rootView.findViewById(R.id.iv_header);
+
+        Glide.with(getContext())
+                .load(host+""+header)
+                .apply(OPTIONS)
+                .into(headerImageView);
+
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlayVideoPageItemFragment.this.getParentDelegate().start(UserDetailDelegate.getInstance(userId));
+            }
+        });
+
     }
 
 //    @Override

@@ -1,4 +1,4 @@
-package com.jqh.wxvideo.delegate.mine.tab;
+package com.jqh.wxvideo.delegate.mine;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +11,6 @@ import com.jqh.core.net.calback.ISuccess;
 import com.jqh.core.recycler.MultipleItemEntity;
 import com.jqh.core.ui.tabviewpager.TabViewPagerItemDelegate;
 import com.jqh.wxvideo.R;
-import com.jqh.wxvideo.delegate.video.videoplayer.VideoDataConverter;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class MineVideoTabItemDelegate extends TabViewPagerItemDelegate {
 
     private static final String VIDEO_PUBLISH_ID_KEY = "VIDEO_PUBLISH_ID_KEY";
 
-    public static MineVideoTabItemDelegate getInstance(int type,String publishId){
+    public static MineVideoTabItemDelegate getInstance(int type, String publishId){
         Bundle args = new Bundle();
         args.putInt(VIDEO_TYPE_KEY,type);
         args.putString(VIDEO_PUBLISH_ID_KEY,publishId);
@@ -77,9 +76,9 @@ public class MineVideoTabItemDelegate extends TabViewPagerItemDelegate {
 
     private void loadUserVideos(){
         RestClient.builder()
-                .loader(getContext())
+             //   .loader(getContext())
                 .url("video/showAll")
-                .headers("userId",userId)
+                .params("userId",userId)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
@@ -92,7 +91,7 @@ public class MineVideoTabItemDelegate extends TabViewPagerItemDelegate {
 
     private void loadLikeVideos(){
         RestClient.builder()
-                .loader(getContext())
+             //   .loader(getContext())
                 .url("video/showMyLike?userId="+userId)
                 .success(new ISuccess() {
                     @Override
@@ -106,7 +105,7 @@ public class MineVideoTabItemDelegate extends TabViewPagerItemDelegate {
 
     private void loadFollowVideos(){
         RestClient.builder()
-                .loader(getContext())
+              //  .loader(getContext())
                 .url("video/showMyFollow?userId="+userId)
                 .success(new ISuccess() {
                     @Override

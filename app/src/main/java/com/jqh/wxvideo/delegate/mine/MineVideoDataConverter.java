@@ -1,4 +1,4 @@
-package com.jqh.wxvideo.delegate.mine.tab;
+package com.jqh.wxvideo.delegate.mine;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

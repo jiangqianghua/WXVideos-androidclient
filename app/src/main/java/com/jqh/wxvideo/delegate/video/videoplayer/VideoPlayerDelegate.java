@@ -15,6 +15,8 @@ import com.jqh.wxvideo.R;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class VideoPlayerDelegate extends JqhDelegate {
     private VerticalViewPager viewPager ;
     private FragmentPagerAdapter adapter ;
@@ -27,6 +29,7 @@ public class VideoPlayerDelegate extends JqhDelegate {
     @Override
     public void onBindView(@Nullable Bundle saveInstanceState, View rootView) {
         viewPager = rootView.findViewById(R.id.view_video_pager);
+
     }
 
     @Override

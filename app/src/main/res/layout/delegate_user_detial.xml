@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar_mine"
+            android:id="@+id/app_bar_detial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -144,13 +144,13 @@
             </android.support.design.widget.CollapsingToolbarLayout>
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/tab_mine_layout"
+                android:id="@+id/tab_detial_layout"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager_mine"
+            android:id="@+id/view_pager_detial"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

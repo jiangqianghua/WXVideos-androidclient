@@ -8,4 +8,5 @@
         android:layout_height="match_parent">
 
     </com.jqh.core.ui.viewpager.VerticalViewPager>
+
 </android.support.constraint.ConstraintLayout>

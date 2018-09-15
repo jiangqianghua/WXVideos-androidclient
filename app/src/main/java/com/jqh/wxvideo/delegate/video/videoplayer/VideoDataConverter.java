@@ -33,6 +33,7 @@ public class VideoDataConverter extends DataConverter {
                     .setField(VideoItemFields.LIKECOUNT,likeCounts)
                     .setField(VideoItemFields.THUMB,faceImage)
                     .setField(VideoItemFields.VIDEOPATH,videoPath)
+                    .setField(VideoItemFields.USERID,userId)
                     .build();
             ENTITES.add(entity);
         }
