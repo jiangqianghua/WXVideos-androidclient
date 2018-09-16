@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * 播放视频的列表
+ */
 public class VideoPlayerDelegate extends JqhDelegate {
     private VerticalViewPager viewPager ;
     private FragmentPagerAdapter adapter ;

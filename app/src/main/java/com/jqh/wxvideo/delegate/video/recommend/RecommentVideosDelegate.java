@@ -10,9 +10,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
+import com.jqh.core.deletegates.JqhDelegate;
 import com.jqh.core.recycler.MultipleItemEntity;
 import com.jqh.core.refresh.RefreshHandler;
-import com.jqh.core.ui.tabviewpager.TabViewPagerItemDelegate;
 import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.delegate.video.videoplayer.VideoPlayerDelegate;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -20,7 +20,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommentVideosDelegate extends TabViewPagerItemDelegate implements RefreshHandler.OnRefreshHandlerListener{
+public class RecommentVideosDelegate extends JqhDelegate implements RefreshHandler.OnRefreshHandlerListener{
 
     private RecyclerView mRecyclerView ;
 
@@ -91,31 +91,6 @@ public class RecommentVideosDelegate extends TabViewPagerItemDelegate implements
 
         refreshHandler.firstPage("video/showAll?page=");
 
-//        RestClient.builder()
-//                .loader(getContext())
-//                .url("video/showAll?page=0")
-//                .params("userId","")
-//                .params("videoDesc","")
-//                .success(new ISuccess() {
-//                    @Override
-//                    public void onSuccess(String response) {
-//                        RecommentVideosAdapter adapter = new RecommentVideosAdapter(new RecommentVideosDataConverter().setJsonData(response).convert());
-//                        mRecyclerView.setAdapter(adapter);
-//                    }
-//                })
-//                .error(new IError() {
-//                    @Override
-//                    public void onError(int code, String msg) {
-//
-//                    }
-//                })
-//                .failure(new IFailure() {
-//                    @Override
-//                    public void onFailure() {
-//
-//                    }
-//                })
-//                .build().postJson();
     }
 
     @Override

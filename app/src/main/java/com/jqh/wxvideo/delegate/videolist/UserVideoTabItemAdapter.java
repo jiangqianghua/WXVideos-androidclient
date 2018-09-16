@@ -1,4 +1,4 @@
-package com.jqh.wxvideo.delegate.mine;
+package com.jqh.wxvideo.delegate.videolist;
 
 import android.widget.ImageView;
 
@@ -16,13 +16,14 @@ import com.jqh.wxvideo.delegate.video.VideosItemType;
 
 import java.util.List;
 
-public class MineVideoTabItemAdapter extends MutipleRecyclerAdapter {
+public class UserVideoTabItemAdapter extends MutipleRecyclerAdapter {
     public static final RequestOptions OPTIONS =
             new RequestOptions()
+                    .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .dontAnimate();
 
-    public MineVideoTabItemAdapter(List<MultipleItemEntity> data) {
+    public UserVideoTabItemAdapter(List<MultipleItemEntity> data) {
         super(data);
         addItemType(VideosItemType.VIDEO_ITEM_MINE, R.layout.item_mine_tabvideo);
     }

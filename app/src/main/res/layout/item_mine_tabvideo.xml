@@ -8,6 +8,6 @@
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/id_mine_tab_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_centerInParent="true" />
 </RelativeLayout>

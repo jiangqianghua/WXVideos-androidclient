@@ -4,13 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.jqh.core.deletegates.JqhDelegate;
+
 import java.util.ArrayList;
 
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     private final ArrayList<TabViewPagerBean> TAB_TITLES ;
-    private final ArrayList<TabViewPagerItemDelegate> TAB_FRAMES ;
-    public TabPagerAdapter(FragmentManager fm, ArrayList<TabViewPagerBean> tabBeans, ArrayList<TabViewPagerItemDelegate> tabViewPagerItemDelegates) {
+    private final ArrayList<JqhDelegate> TAB_FRAMES ;
+    public TabPagerAdapter(FragmentManager fm, ArrayList<TabViewPagerBean> tabBeans, ArrayList<JqhDelegate> tabViewPagerItemDelegates) {
         super(fm);
         TAB_TITLES = tabBeans;
         TAB_FRAMES = tabViewPagerItemDelegates ;

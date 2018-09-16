@@ -28,7 +28,8 @@ import com.jqh.core.net.calback.IFailure;
 import com.jqh.core.net.calback.ISuccess;
 import com.jqh.core.util.log.JqhLogger;
 import com.jqh.wxvideo.R;
-import com.jqh.wxvideo.delegate.mine.TabPagerMineAdapter;
+
+import com.jqh.wxvideo.delegate.videolist.TabPagerUserVideoAdapter;
 import com.jqh.wxvideo.utils.cache.CacheData;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -114,7 +115,7 @@ public class UserDetailDelegate extends JqhDelegate implements
     }
 
     private void initPager() {
-        final PagerAdapter adapter = new TabPagerMineAdapter(getFragmentManager(), userId);
+        final PagerAdapter adapter = new TabPagerUserVideoAdapter(getFragmentManager(), userId);
         mViewPager.setAdapter(adapter);
     }
 

@@ -30,6 +30,7 @@ import com.jqh.core.net.calback.ISuccess;
 import com.jqh.core.util.log.JqhLogger;
 import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.delegate.login.LoginDelegate;
+import com.jqh.wxvideo.delegate.videolist.TabPagerUserVideoAdapter;
 import com.jqh.wxvideo.utils.cache.CacheData;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -101,7 +102,7 @@ public class MineDelegate extends BottomItemDelegate implements
         if(!CacheData.isLogin()){
             this.getParentDelegate().start(new LoginDelegate());
         }
-        //this.getParentDelegate().start(new LoginDelegate());
+//        this.getParentDelegate().start(new LoginDelegate());
 
         // 获取用户信息
         updateUserInfo();
@@ -119,7 +120,7 @@ public class MineDelegate extends BottomItemDelegate implements
     }
 
     private void initPager() {
-        final PagerAdapter adapter = new TabPagerMineAdapter(getFragmentManager(), userId);
+        final PagerAdapter adapter = new TabPagerUserVideoAdapter(getFragmentManager(), userId);
         mViewPager.setAdapter(adapter);
     }
     /**

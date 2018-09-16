@@ -17,9 +17,9 @@ import java.util.Map;
 
 public abstract class BaseTabViewPagerDelegate extends JqhDelegate {
 
-    private final ArrayList<TabViewPagerItemDelegate> ITEM_DELEGES = new ArrayList<>();
+    private final ArrayList<JqhDelegate> ITEM_DELEGES = new ArrayList<>();
     private final ArrayList<TabViewPagerBean> TAB_BEAN = new ArrayList<>();
-    private final LinkedHashMap<TabViewPagerBean,TabViewPagerItemDelegate> ITEMS = new LinkedHashMap<>();
+    private final LinkedHashMap<TabViewPagerBean,JqhDelegate> ITEMS = new LinkedHashMap<>();
 
     private int mSelectColor = Color.GREEN;
 
@@ -48,11 +48,11 @@ public abstract class BaseTabViewPagerDelegate extends JqhDelegate {
         }
 
         final ItemBuilder builder = ItemBuilder.builder();
-        final LinkedHashMap<TabViewPagerBean,TabViewPagerItemDelegate> items = setItems(builder);
+        final LinkedHashMap<TabViewPagerBean,JqhDelegate> items = setItems(builder);
         ITEMS.putAll(items);
-        for(Map.Entry<TabViewPagerBean,TabViewPagerItemDelegate> item:ITEMS.entrySet()){
+        for(Map.Entry<TabViewPagerBean,JqhDelegate> item:ITEMS.entrySet()){
             final TabViewPagerBean key = item.getKey();
-            final TabViewPagerItemDelegate value = item.getValue();
+            final JqhDelegate value = item.getValue();
             TAB_BEAN.add(key);
             ITEM_DELEGES.add(value);
         }
@@ -99,7 +99,7 @@ public abstract class BaseTabViewPagerDelegate extends JqhDelegate {
         mViewPager.setAdapter(adapter);
     }
 
-    public abstract LinkedHashMap<TabViewPagerBean,TabViewPagerItemDelegate> setItems(ItemBuilder builder);
+    public abstract LinkedHashMap<TabViewPagerBean,JqhDelegate> setItems(ItemBuilder builder);
 
     protected abstract int setSelectColor();
 
