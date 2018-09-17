@@ -28,4 +28,9 @@ public class CacheData {
         JqhPreference.addCustomAppProfile(TOKEN_ID,token);
     }
 
+    public static void deleteLoginToken(){
+        JqhPreference.addCustomAppProfile(USER_ID,"");
+        JqhPreference.addCustomAppProfile(TOKEN_ID,"");
+    }
+
 }

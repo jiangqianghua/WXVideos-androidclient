@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 
 import com.jqh.core.bottom.BottomItemDelegate;
+import com.jqh.core.ui.photo.PictureSelector;
 import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.delegate.bottom.BottomDelegate;
 
@@ -24,7 +25,11 @@ public class LauncherDelegate extends BottomItemDelegate {
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startWithPop(new BottomDelegate());
+               // startWithPop(new BottomDelegate());
+                PictureSelector.create(_mActivity)
+                        .setSelectorType(PictureSelector.SELECTOR_TYPE_MEDIA)
+                        .forResult(1234)
+                        .start();
             }
         });
     }

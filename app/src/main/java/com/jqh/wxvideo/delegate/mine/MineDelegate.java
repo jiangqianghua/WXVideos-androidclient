@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
@@ -32,6 +33,7 @@ import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.delegate.login.LoginDelegate;
 import com.jqh.wxvideo.delegate.videolist.TabPagerUserVideoAdapter;
 import com.jqh.wxvideo.utils.cache.CacheData;
+import com.jqh.wxvideo.utils.json.ResponseParse;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,6 +58,8 @@ public class MineDelegate extends BottomItemDelegate implements
     AppBarLayout mAppBar = null;
 
     private String userId ;
+
+    private AppCompatButton logoutBtn ;
 
     public static final String USER_ID_KEY = "USER_ID_KEY";
     @Override
@@ -90,7 +94,7 @@ public class MineDelegate extends BottomItemDelegate implements
         fanTv = rootView.findViewById(R.id.tv_fannum);
         followTv = rootView.findViewById(R.id.tv_follownum);
         priseTv = rootView.findViewById(R.id.tv_prisenum);
-
+        logoutBtn = rootView.findViewById(R.id.btn_logout);
         mTabLayout = (TabLayout)rootView.findViewById(R.id.tab_mine_layout);
         mViewPager = (ViewPager)rootView.findViewById(R.id.view_pager_mine);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout)rootView.findViewById(R.id.collapsing_toolbar_mine);
@@ -107,6 +111,8 @@ public class MineDelegate extends BottomItemDelegate implements
         // 获取用户信息
         updateUserInfo();
         initPager();
+
+        initEvent();
     }
 
     private void initTabLayout(){
@@ -138,7 +144,16 @@ public class MineDelegate extends BottomItemDelegate implements
                     @Override
                     public void onSuccess(String response) {
                         JqhLogger.d(response);
-                        updateView(response);
+                        int status = ResponseParse.getStatus(response);
+                        if(status == ResponseParse.STATUS_OK){
+                            updateView(response);
+                        }
+                        else if(status == ResponseParse.STATUS_TOKEN_ERR){
+                            MineDelegate.this.getParentDelegate().start(new LoginDelegate());
+                        }else {
+                            ToastUtils.showShort(ResponseParse.getMsg(response));
+                        }
+
                     }
                 })
                 .error(new IError() {
@@ -178,5 +193,15 @@ public class MineDelegate extends BottomItemDelegate implements
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
+    }
+
+    private void initEvent(){
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CacheData.deleteLoginToken();
+                MineDelegate.this.start(new LoginDelegate());
+            }
+        });
     }
 }

@@ -16,6 +16,7 @@ import com.jqh.core.net.calback.ISuccess;
 import com.jqh.core.util.log.JqhLogger;
 import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.utils.cache.CacheData;
+import com.jqh.wxvideo.utils.json.ResponseParse;
 
 public class LoginDelegate extends JqhDelegate implements View.OnClickListener {
 
@@ -70,10 +71,17 @@ public class LoginDelegate extends JqhDelegate implements View.OnClickListener {
                     public void onSuccess(String response) {
                         //{"status":200,"msg":"OK","data":{"id":"18072892YYX16R1P","userToken":"ff13e720-aea9-46ea-af3d-4c6975cfb2af","username":"1","faceImage":"/18072892YYX16R1P/face/tmp_31751fcdf334decfe6d7009a681ee850.jpg","nickname":"1","fansCounts":0,"followCounts":1,"receiveLikeCounts":1,"follow":false},"ok":null}
                         JqhLogger.d(response);
-                        JSONObject data = JSON.parseObject(response).getJSONObject("data");
-                        String userId = data.getString("id");
-                        String token = data.getString("userToken");
-                        CacheData.savaLoginToken(userId,token);
+                        int status = ResponseParse.getStatus(response);
+                        if(status == ResponseParse.STATUS_OK){
+                            JSONObject data = JSON.parseObject(response).getJSONObject("data");
+                            String userId = data.getString("id");
+                            String token = data.getString("userToken");
+                            CacheData.savaLoginToken(userId,token);
+                            LoginDelegate.this.pop();
+                        }else{
+                            ToastUtils.showShort(ResponseParse.getMsg(response));
+                        }
+
                     }
                 })
                 .build().postJson();
