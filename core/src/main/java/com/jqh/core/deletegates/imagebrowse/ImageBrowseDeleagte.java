@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +25,9 @@ public class ImageBrowseDeleagte extends JqhDelegate {
     private ArrayList<View> pageViewList ;
     private List<String> imageArr ;
     private int curPosition = 0 ;
+
+    private AppCompatImageView backImageView ;
+    private AppCompatTextView indexTextView ;
 
     private static final String ARGS_POSITION = "ARGS_POSITION";
     private static final String ARGS_IMAGE_LIST = "ARGS_IMAGE_LIST";
@@ -51,6 +56,34 @@ public class ImageBrowseDeleagte extends JqhDelegate {
     @Override
     public void onBindView(@Nullable Bundle saveInstanceState, View rootView) {
         mViewPager = rootView.findViewById(R.id.vp_image_list_broswer);
+        backImageView = rootView.findViewById(R.id.iv_back);
+        indexTextView = rootView.findViewById(R.id.tv_index);
+        backImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pop();
+            }
+        });
+
+        indexTextView.setText((curPosition+1)+"/"+imageArr.size());
+
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                indexTextView.setText((position+1)+"/"+imageArr.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

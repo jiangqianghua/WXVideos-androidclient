@@ -8,8 +8,15 @@
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
         android:layout_height="120dp" />
+    <View
+        android:id="@+id/view_select_bk"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="#50ffffff"
+        android:visibility="invisible"
+        />
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/iv_image_select"
+        android:id="@+id/iv_select"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@mipmap/unselected"

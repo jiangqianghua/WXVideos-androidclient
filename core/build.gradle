@@ -122,4 +122,6 @@ dependencies {
     compile 'com.lzy.widget:imagepicker:0.6.1'
 
     compile 'com.yuyh.bubble:library:1.0.0'
+
+    compile 'cn.jzvd:jiaozivideoplayer:6.2.12'
 }

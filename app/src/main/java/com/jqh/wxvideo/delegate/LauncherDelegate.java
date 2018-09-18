@@ -25,11 +25,11 @@ public class LauncherDelegate extends BottomItemDelegate {
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // startWithPop(new BottomDelegate());
-                PictureSelector.create(_mActivity)
-                        .setSelectorType(PictureSelector.SELECTOR_TYPE_MEDIA)
-                        .forResult(1234)
-                        .start();
+                startWithPop(new BottomDelegate());
+//                PictureSelector.create(_mActivity)
+//                        .setSelectorType(PictureSelector.SELECTOR_TYPE_MEDIA)
+//                        .forResult(1234)
+//                        .start();
             }
         });
     }
