@@ -1,5 +1,6 @@
 package com.jqh.wxvideo.delegate.mine;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,10 +25,14 @@ import com.bumptech.glide.request.RequestOptions;
 import com.jqh.core.app.ConfigKeys;
 import com.jqh.core.app.Jqh;
 import com.jqh.core.bottom.BottomItemDelegate;
+import com.jqh.core.media.EntityVideo;
+import com.jqh.core.media.MediaUtils;
 import com.jqh.core.net.RestClient;
 import com.jqh.core.net.calback.IError;
 import com.jqh.core.net.calback.IFailure;
 import com.jqh.core.net.calback.ISuccess;
+import com.jqh.core.ui.photo.PictureSelector;
+import com.jqh.core.ui.photo.RequestCode;
 import com.jqh.core.util.log.JqhLogger;
 import com.jqh.wxvideo.R;
 import com.jqh.wxvideo.delegate.login.LoginDelegate;
@@ -35,10 +40,14 @@ import com.jqh.wxvideo.delegate.videolist.TabPagerUserVideoAdapter;
 import com.jqh.wxvideo.utils.cache.CacheData;
 import com.jqh.wxvideo.utils.json.ResponseParse;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MineDelegate extends BottomItemDelegate implements
         AppBarLayout.OnOffsetChangedListener{
+    private final int resultCode = 1001;
     public static final RequestOptions OPTIONS =
             new RequestOptions()
                     .centerCrop()
@@ -49,6 +58,7 @@ public class MineDelegate extends BottomItemDelegate implements
     private AppCompatTextView fanTv;
     private AppCompatTextView followTv ;
     private AppCompatTextView priseTv ;
+    private AppCompatButton uploadBtn ;
 
     TabLayout mTabLayout = null;
     ViewPager mViewPager = null;
@@ -88,7 +98,7 @@ public class MineDelegate extends BottomItemDelegate implements
 
     @Override
     public void onBindView(@Nullable Bundle saveInstanceState, View rootView) {
-
+        uploadBtn = rootView.findViewById(R.id.btn_upload);
         nameTv = rootView.findViewById(R.id.tv_name);
         thumbImg = rootView.findViewById(R.id.iv_thum);
         fanTv = rootView.findViewById(R.id.tv_fannum);
@@ -203,5 +213,123 @@ public class MineDelegate extends BottomItemDelegate implements
                 MineDelegate.this.start(new LoginDelegate());
             }
         });
+
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 上传作品
+                PictureSelector.create(MineDelegate.this)
+                        .setSelectorType(PictureSelector.SELECTOR_TYPE_MEDIA)
+                        .maxSelectNum(1)
+                        .forResult(resultCode)
+                        .start();
+            }
+        });
+
+        thumbImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 上传头像
+                PictureSelector.create(MineDelegate.this)
+                        .setSelectorType(PictureSelector.SELECTOR_TYPE_IMAGES)
+                        .maxSelectNum(1)
+                        .forResult(resultCode)
+                        .start();
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RequestCode.REQUESTCODE_IMAGE_SELECT && resultCode == this.resultCode){
+            ArrayList<String> imageDatas = data.getStringArrayListExtra("data");
+            if(imageDatas.size() == 1 ){
+                String path = imageDatas.get(0);
+                updateFace(path);
+            }
+        }else if(requestCode == RequestCode.REQUESTCODE_MEDIA_SELECT && resultCode == this.resultCode){
+            EntityVideo entityVideo = (EntityVideo) data.getSerializableExtra("data");
+            if(entityVideo != null){
+                MediaUtils.fillVideWH(entityVideo.getVideoPath(),entityVideo);
+                uploadVideo(entityVideo);
+            }
+        }
+
+    }
+
+    private void updateFace(String path){
+        String userId = CacheData.getUserId();
+        String tokenId = CacheData.getTokenId();
+        RestClient.builder()
+                .loader(getContext())
+                .url("user/uploadFace?userId="+userId)
+                .file(path)
+                .headers("userId",userId)
+                .headers("userToken",tokenId)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        JqhLogger.d(response);
+                        updateUserInfo();
+                    }
+                })
+                .error(new IError() {
+                    @Override
+                    public void onError(int code, String msg) {
+                        JqhLogger.d(msg);
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        JqhLogger.d("onFailure");
+                    }
+                })
+                .build()
+                .upload();
+
+    }
+
+    /**
+     * 上传视频
+     * @param entityVideo
+     */
+    private void uploadVideo(EntityVideo entityVideo){
+        String userId = CacheData.getUserId();
+        String tokenId = CacheData.getTokenId();
+        RestClient.builder()
+                .loader(getContext())
+                .url("video/upload")
+                .file(entityVideo.getVideoPath())
+                .headers("userId",userId)
+                .headers("userToken",tokenId)
+                .params("userId",userId)
+                .params("bgmId","")
+                .params("desc","desc")
+                .params("videoSeconds",entityVideo.getDuration())
+                .params("videoWidth",entityVideo.getWidth())
+                .params("videoHeight",entityVideo.getHeight())
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        JqhLogger.d(response);
+                    }
+                })
+                .error(new IError() {
+                    @Override
+                    public void onError(int code, String msg) {
+                        JqhLogger.d(msg);
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        JqhLogger.d("onFailure");
+                    }
+                })
+                .build()
+                .upload();
+
     }
 }

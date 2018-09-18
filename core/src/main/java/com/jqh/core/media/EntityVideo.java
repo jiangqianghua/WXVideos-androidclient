@@ -7,6 +7,8 @@ public class EntityVideo implements Serializable {
     private int duration ;
     private String thumbPath ;
     private String displayName ;
+    private int width ;
+    private int height ;
 
     public String getVideoPath() {
         return videoPath;
@@ -38,5 +40,21 @@ public class EntityVideo implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

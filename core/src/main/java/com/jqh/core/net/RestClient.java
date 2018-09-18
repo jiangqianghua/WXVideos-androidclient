@@ -126,7 +126,7 @@ public class RestClient {
             case UPLOAD:
                 final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()),FILE);
                 final MultipartBody.Part body = MultipartBody.Part.createFormData("file",FILE.getName(),requestBody);
-                call = RestCreator.getRestService().upload(URL,body);
+                call = RestCreator.getRestService().upload(URL,PARAMS,body,HEADERS);
                 break;
         }
         if(call != null){

@@ -5,6 +5,7 @@
     <application>
         <activity android:name=".ui.photo.ImageSelectorActivity" />
         <activity android:name=".ui.photo.MediaSelectorActivity"></activity>
+        <activity android:name=".ui.photo.VideoPlayerActivity"></activity>
     </application>
 
 </manifest>

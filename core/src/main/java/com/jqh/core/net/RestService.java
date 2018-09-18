@@ -19,6 +19,8 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -63,5 +65,11 @@ public interface RestService {
 
     @Multipart
     @POST
-    Call<String> upload(@Url String url, @Part MultipartBody.Part file);
+    Call<String> upload(@Url String url, @Part MultipartBody.Part file,@HeaderMap Map<String, String> headers);
+
+    @Multipart
+    @POST
+    Call<String> upload(@Url String url,
+                        @QueryMap Map<String,Object>params,
+                        @Part MultipartBody.Part file, @HeaderMap Map<String, String> headers);
 }
