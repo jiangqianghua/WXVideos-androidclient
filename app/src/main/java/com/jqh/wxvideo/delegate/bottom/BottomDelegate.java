@@ -25,7 +25,7 @@ public class BottomDelegate extends BaseBottomDelegate {
         items.put(new BottomTabBean("{fa-home}","直播"),new HomeDelegate());
         items.put(new BottomTabBean("{fa-home}","视频"),new VideosDelegate());
       //  items.put(new BottomTabBean(R.mipmap.plus),new LauncherDelegate());
-        items.put(new BottomTabBean("{fa-home}","消息"),new LauncherDelegate());
+        items.put(new BottomTabBean("{fa-home}","消息"),new VideosDelegate());
         items.put(new BottomTabBean("{fa-home}","我的"), MineDelegate.getInstance(userId));
         //items.put(new BottomTabBean("{fa-home}","我的"),new LauncherDelegate());
         return builder.addItems(items).build();
