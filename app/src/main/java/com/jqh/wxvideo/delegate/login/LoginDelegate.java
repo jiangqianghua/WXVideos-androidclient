@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.jqh.core.app.SignHandler;
 import com.jqh.core.deletegates.JqhDelegate;
 import com.jqh.core.net.RestClient;
 import com.jqh.core.net.calback.ISuccess;
@@ -77,7 +78,8 @@ public class LoginDelegate extends JqhDelegate implements View.OnClickListener {
                             String userId = data.getString("id");
                             String token = data.getString("userToken");
                             CacheData.savaLoginToken(userId,token);
-                            LoginDelegate.this.pop();
+                           // LoginDelegate.this.pop();
+                            SignHandler.signIn();
                         }else{
                             ToastUtils.showShort(ResponseParse.getMsg(response));
                         }

@@ -89,7 +89,7 @@ public class RefreshHandler implements OnRefreshListener,OnLoadMoreListener {
         final int total = BEAN.getTotal();
 
 
-        if( currentCount < pageSize || currentCount >= total){
+        if( /**currentCount < pageSize ||**/ currentCount >= total){
             REFRESHLAYOUT.finishLoadMore(1/*,false*/);
             REFRESHLAYOUT.setEnableLoadMore(false);
         }
@@ -107,5 +107,11 @@ public class RefreshHandler implements OnRefreshListener,OnLoadMoreListener {
                     .build()
                     .postJson();
         }
+    }
+
+
+    public void finishLoad(){
+        REFRESHLAYOUT.finishLoadMore(1/*,false*/);
+        REFRESHLAYOUT.setEnableLoadMore(false);
     }
 }

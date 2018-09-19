@@ -80,8 +80,13 @@ public abstract class BaseUserVideoListDelegate extends JqhDelegate implements R
 
     @Override
     public void onLoadMoreData(String response) {
-        adapter.addData(new UserVideoDataConverter().setJsonData(response).convert());
-        refreshHandlerImpro.setCurCount(adapter.getData().size());
+        ArrayList<MultipleItemEntity> list = new UserVideoDataConverter().setJsonData(response).convert() ;
+        if(list.size() > 0) {
+            adapter.addData(list);
+            refreshHandlerImpro.setCurCount(adapter.getData().size());
+        }else{
+            refreshHandlerImpro.finishLoad();
+        }
     }
 
     @Override

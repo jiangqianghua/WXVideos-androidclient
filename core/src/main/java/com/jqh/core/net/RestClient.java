@@ -30,7 +30,7 @@ public class RestClient {
 
     private final String URL ;
 
-    private final WeakHashMap<String,Object> PARAMS = RestCreator.getParams() ;
+    private final WeakHashMap<String,Object> PARAMS ;//RestCreator.getParams() ;
 
     private final IRequest REQUEST ;
 
@@ -60,7 +60,7 @@ public class RestClient {
 
 
     public RestClient(String URL,
-                      Map<String, Object> PARAMS,
+                      WeakHashMap<String, Object> PARAMS,
                       IRequest REQUEST,
                       ISuccess SUCCESS,
                       IError ERROR,
@@ -74,7 +74,8 @@ public class RestClient {
                       String name,
                       WeakHashMap<String ,String> headers) {
         this.URL = URL;
-        this.PARAMS.putAll(PARAMS);
+        //this.PARAMS.putAll(PARAMS);
+        this.PARAMS = PARAMS;
         this.REQUEST = REQUEST;
         this.SUCCESS = SUCCESS;
         this.ERROR = ERROR;

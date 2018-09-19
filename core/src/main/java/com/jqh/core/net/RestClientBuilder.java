@@ -49,7 +49,7 @@ public class RestClientBuilder {
     private  String mName;
 
     public RestClientBuilder(){
-
+        PARAMS = new WeakHashMap<>();
     }
 
 

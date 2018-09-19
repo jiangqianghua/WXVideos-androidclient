@@ -24,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.jqh.core.app.ConfigKeys;
 import com.jqh.core.app.Jqh;
+import com.jqh.core.app.SignHandler;
 import com.jqh.core.bottom.BottomItemDelegate;
 import com.jqh.core.media.EntityVideo;
 import com.jqh.core.media.MediaUtils;
@@ -114,7 +115,8 @@ public class MineDelegate extends BottomItemDelegate implements
         mAppBar.addOnOffsetChangedListener(this);
         initTabLayout();
         if(!CacheData.isLogin()){
-            this.getParentDelegate().start(new LoginDelegate());
+            //this.getParentDelegate().start(new LoginDelegate());
+            SignHandler.signUp();
         }
 //        this.getParentDelegate().start(new LoginDelegate());
 
@@ -159,7 +161,8 @@ public class MineDelegate extends BottomItemDelegate implements
                             updateView(response);
                         }
                         else if(status == ResponseParse.STATUS_TOKEN_ERR){
-                            MineDelegate.this.getParentDelegate().start(new LoginDelegate());
+                           // MineDelegate.this.getParentDelegate().start(new LoginDelegate());
+                            SignHandler.signUp();
                         }else {
                             ToastUtils.showShort(ResponseParse.getMsg(response));
                         }
@@ -210,7 +213,8 @@ public class MineDelegate extends BottomItemDelegate implements
             @Override
             public void onClick(View view) {
                 CacheData.deleteLoginToken();
-                MineDelegate.this.start(new LoginDelegate());
+                SignHandler.signUp();
+
             }
         });
 

@@ -75,7 +75,7 @@ public class RefreshHandlerImpro implements OnRefreshListener,OnLoadMoreListener
         final int total = BEAN.getTotal();
 
 
-        if( currentCount < pageSize || currentCount >= total){
+        if( /**currentCount < pageSize ||**/ currentCount >= total){
             REFRESHLAYOUT.finishLoadMore(1/*,false*/);
             REFRESHLAYOUT.setEnableLoadMore(false);
         }
@@ -95,5 +95,10 @@ public class RefreshHandlerImpro implements OnRefreshListener,OnLoadMoreListener
         }
         BEAN.addIndex();
 
+    }
+
+    public void finishLoad(){
+        REFRESHLAYOUT.finishLoadMore(1/*,false*/);
+        REFRESHLAYOUT.setEnableLoadMore(false);
     }
 }
